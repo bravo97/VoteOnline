@@ -1,0 +1,112 @@
+
+.container {
+  display: flex; /* Use flexbox for layout */
+  height: 100%; /* Full height of the viewport */
+  max-width: 100%;
+  margin: auto;
+  background-color: #52ACFF;
+  background-image: linear-gradient(180deg, #52ACFF 25%, #FFE32C 100%);
+}
+
+.column {
+  flex: 1; /* Allow columns to grow equally */
+  margin: 0; /* No margin for columns */
+  padding: 10px;
+  border: 1px solid #ccc; /* Light border for visibility */
+  min-width: 100px; /* Minimum width for columns */
+}
+
+.msg_history {
+  overflow-y: auto;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column; /* Stack messages and input vertically */
+}
+
+
+.messages {
+  flex: 1; /* Allow messages area to grow */
+  max-height: 300px; /* Limit the height of message area */
+  overflow-y: auto; /* Enable scrolling for messages */
+  margin-bottom: 10px; /* Space between messages and input */
+  padding-right: 5px; /* Add space for scrollbar */
+  background-color: none;
+}
+
+.outgoing_msg {
+  overflow: hidden;
+  margin: 8px 0 8px;
+}
+
+.sent_msg p {
+  background: #05728f none repeat scroll 0 0;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 0;
+  color: #fff;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+
+.sent_msg {
+  float: right;
+  width: 46%;
+}
+
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+  margin-bottom: 6px;
+}
+
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+  background-color: #52ACFF;
+}
+
+.chat-input {
+  display: flex; /* Use flexbox for chat input layout */
+  margin-top: auto; /* Push chat input to the bottom */
+}
+
+.chat-input input {
+  flex: 1; /* Allow input field to grow */
+  padding: 10px; /* Add padding inside input */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.chat-input button {
+  padding: 10px 15px; /* Padding for button */
+  margin-left: 10px; /* Space between input and button */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.chat-input button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+h2 {
+  margin-top: 0; /* Remove margin from top of headings */
+}
+
+.expandable-card{
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .column {
+      max-width: 100%; /* Allow columns to stack on small screens */
+      flex-basis: 100%; /* Ensure all columns take full width */
+  }
+}

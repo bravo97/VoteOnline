@@ -1,0 +1,143 @@
+<div class="landing-container">
+  <!-- hero.component.html -->
+  <div class="hero-section">
+    <!-- Header chứa logo và nút đăng nhập/đăng ký -->
+    <div class="hero-header">
+      <div class="hero-left">
+        <img src="assets/images/logo.png" alt="Logo" class="hero-logo" />
+      </div>
+    </div>
+  
+    <!-- Nội dung chính -->
+    <div class="hero-content">
+      <div class="hero-title">Trang Bình Chọn Trực Tuyến</div>
+      <div class="hero-subtitle">
+        Tham gia, bình chọn và tạo cuộc bình chọn của riêng bạn một cách dễ dàng!
+      </div>
+  
+      <!-- Phần nút trượt -->
+      <div class="slider-wrapper" *ngIf="!showForm">
+        <div class="slider-track" [ngClass]="{ activated: activated }" (click)="startSlide()">
+          <button class="slider-thumb">Nhấn để tham gia</button>
+        </div>
+        <button class="create-btn">Tạo bình chọn</button>
+      </div>
+  
+      <!-- Form nhập thông tin -->
+      <div class="register-form" [class.show]="showForm">
+        <form (ngSubmit)="onSubmit" #form="ngForm">
+          <input type="text" placeholder="Nhập tên của bạn" name="name" ngModel required />
+          <input type="email" placeholder="Email (tuỳ chọn)" name="email" ngModel />
+          <button type="submit">Tham gia ngay</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <h2 class="section-title" [@fadeInUp]>Tính năng nổi bật</h2>
+    <div class="features-grid">
+      <mat-card class="feature-card" *ngFor="let feature of features" [@fadeInUp]>
+        <mat-card-header>
+          <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+          <mat-card-title>{{ feature.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  
+  <!-- Detailed Function Description -->
+  <section class="features-section">
+    <div class="feature-box" style="background-color: #e9f9f3;" @fadeInUp>
+      <div class="feature-content">
+        <div class="feature-text">
+          <h3>Đồng bộ với các sàn thương mại điện tử</h3>
+          <p>Hệ thống cho phép kết nối và đồng bộ sản phẩm với các sàn như Shopee, Tiki, Lazada,… giúp bạn bán hàng đa kênh dễ dàng hơn.</p>
+          <button mat-raised-button color="primary">Xem chi tiết</button>
+        </div>
+        <div class="feature-image">
+          <img src="assets/images/san-thuong-mai.png" alt="TMĐT" />
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature-box" style="background-color: #edf6ff;" @fadeInUp>
+      <div class="feature-content reverse">
+        <div class="feature-text">
+          <h3>Website bán hàng chỉ với 1 lần chạm</h3>
+          <p>Tạo ngay website riêng chuyên nghiệp mà không cần biết lập trình. Giao diện đẹp mắt, hỗ trợ bán hàng online hiệu quả.</p>
+          <button mat-raised-button color="accent">Xem chi tiết</button>
+        </div>
+        <div class="feature-image">
+          <img src="assets/images/website-ban-hang.png" alt="Website" />
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature-box" style="background-color: #fff3f3;" @fadeInUp>
+      <div class="feature-content">
+        <div class="feature-text">
+          <h3>Liên kết quản lý bán hàng trên Facebook</h3>
+          <p>Hỗ trợ quản lý đơn hàng và tương tác khách hàng ngay trên Fanpage. Đồng bộ dữ liệu và tin nhắn để không bỏ lỡ khách hàng nào.</p>
+          <button mat-raised-button color="warn">Xem chi tiết</button>
+        </div>
+        <div class="feature-image">
+          <img src="assets/images/facebook-ban-hang.png" alt="Facebook" />
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature-box" style="background-color: #fff9f0;" @fadeInUp>
+      <div class="feature-content reverse">
+        <div class="feature-text">
+          <h3>Giải pháp giao hàng dễ dàng</h3>
+          <p>Tích hợp nhiều đơn vị vận chuyển như GHTK, ViettelPost, J&T,… giúp bạn xử lý đơn nhanh chóng và tối ưu chi phí giao hàng.</p>
+          <button mat-raised-button color="primary">Xem chi tiết</button>
+        </div>
+        <div class="feature-image">
+          <img src="assets/images/giao-hang.png" alt="Giao hàng" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="features-section testimonials">
+    <h2 class="section-title">Người dùng nói gì về chúng tôi</h2>
+    <div class="testimonials-carousel">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <mat-card class="feature-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="testimonial.avatar" alt="{{ testimonial.name }}">
+            <mat-card-title>{{ testimonial.name }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{ testimonial.content }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- Footer -->
+  <footer class="footer" @fadeInUp>
+    <div class="footer-content">
+      <div class="footer-left">
+        <img src="assets/images/logo.png" alt="Logo" class="footer-logo" />
+        <p>© 2025 Vote Online. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <p>Liên hệ:</p>
+        <p>Email: supportvoteonline.vn</p>
+        <p>Điện thoại: 0123 456 789</p>
+      </div>
+    </div>
+  </footer>
+  
+  </div>
+  

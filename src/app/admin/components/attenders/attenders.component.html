@@ -1,0 +1,95 @@
+<div style="display: flex;">
+  <form [formGroup]="attenderForm">
+    <mat-form-field>
+      <mat-select formControlName="vande" (selectionChange)="changeBallot()">
+          @for (dd of arrayBallot; track dd.id) {
+          <mat-option [value]="dd.id">{{dd.tenvd}}</mat-option>
+          }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Họ và tên</mat-label>
+      <input formControlName="hoTen" matInput />
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width">
+      <mat-label>Điện thoại</mat-label>
+      <input formControlName="dienThoai" matInput />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>CMND</mat-label>
+      <input formControlName="cmnd" matInput />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>KhoaBM</mat-label>
+      <input formControlName="khoaBM" matInput />
+    </mat-form-field>
+  </form>   
+  <div>
+    <a mat-raised-button color="accent" (click)="AddAttender()" >Thêm</a>
+    <input type="file" (change)="onFileChange($event)" accept=".xls, .xlsx" />
+  </div>
+  <div>
+    <a mat-raised-button color="primary" (click)="Save()" >Luu</a>
+  </div>
+
+
+</div>
+
+<div class="responsive-table">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="hoTen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Người tham dự </th>
+        <td mat-cell *matCellDef="let row"> {{row.hoTen}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="dienThoai">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Điện thoại </th>
+        <td mat-cell *matCellDef="let row"> {{row.dienThoai}} </td>
+      </ng-container>
+  
+      <!-- Fruit Column -->
+      <ng-container matColumnDef="cmnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CMND </th>
+        <td mat-cell *matCellDef="let row"> {{row.cmnd}} </td>
+      </ng-container>
+
+      <!-- Fruit Column -->
+      <ng-container matColumnDef="khoaBM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Khóa bảo mật </th>
+        <td mat-cell *matCellDef="let row"> {{row.khoaBM}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let row">
+
+          <button mat-icon-button color="primary" matTooltip="Edit row">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="primary"  matTooltip="Delete row">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+  
+      <tr class="table-header" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

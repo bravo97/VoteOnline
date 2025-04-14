@@ -1,0 +1,57 @@
+
+<div class="container">
+  <div class="column chat-box">
+      <div class="msg_history" #scrollMe>
+        <ng-container *ngFor="let message of this.chatService.messages$ | async">
+          <div [ngClass]="{'incoming_msg': message.cmnd !== loggedInUserName, 'outgoing_msg': message.cmnd === loggedInUserName}">
+          <!-- Tin nhắn nhận được -->
+          <div *ngIf="message.cmnd !== loggedInUserName" class="incoming_msg">
+            <mat-card class="received_msg">
+              <mat-card-content>
+                <p>{{ message.message }}</p>
+                <span class="time_date">{{ message.user }} | {{ message.messageTime | date: 'medium' }}</span>
+              </mat-card-content>
+            </mat-card>
+          </div>
+  
+          <!-- Tin nhắn gửi đi -->
+          <div *ngIf="message.cmnd === loggedInUserName" class="outgoing_msg">
+            <mat-card class="sent_msg" color="primary">
+              <mat-card-content>
+                <p>{{ message.message }}</p>
+                <span class="time_date">{{ message.user }} | {{ message.messageTime | date: 'medium' }}</span>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="chat-input">
+        <input matInput placeholder="Type a message..." [(ngModel)]="inputMessage" (keydown.enter)="sendMessage()">
+          <button mat-icon-button color="primary" (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+          </button>
+      </div>
+  </div>
+  <div class="column center-column">
+      
+  </div>
+  <div class="column list-box">
+      <mat-card *ngFor="let card of cards" class="expandable-card">
+        <mat-card-header (click)="toggleExpand(card)">
+            <mat-card-title>{{ card.title }}</mat-card-title>
+            <mat-icon>{{ card.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </mat-card-header>
+        <mat-card-content [@expandAnimation]="card.isExpanded ? 'expanded' : 'collapsed'">
+            <p>{{ card.content }}</p>
+
+            <mat-radio-group  aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+            @for (plan of card.plan; track plan) {
+              <mat-radio-button class="example-radio-button" [value]="plan.id">{{plan.Ten}}</mat-radio-button>
+            }
+          </mat-radio-group>
+        </mat-card-content>
+    </mat-card>
+  </div>
+</div>

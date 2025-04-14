@@ -1,0 +1,43 @@
+.admin-votes-wrapper {
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.votes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  .search-field {
+    flex: 1;
+  }
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+
+  table {
+    width: 100%;
+  }
+
+
+  th.mat-header-cell {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  td.mat-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+}

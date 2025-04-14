@@ -1,0 +1,168 @@
+.discussion-page {
+  display: flex;
+  gap: 20px;
+  padding: 2rem;
+  height: 100vh;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+
+  > div {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    flex: 1;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  // Chat Section
+  .chat-section {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .chat-messages {
+      flex: 1;
+      max-height: 100%;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+
+      .message {
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+
+      input {
+        flex: 1;
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        font-size: 0.95rem;
+        outline: none;
+
+        &:focus {
+          border-color: #2196f3;
+        }
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        background-color: #2196f3;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: #1976d2;
+        }
+      }
+    }
+  }
+
+  // Media Section
+  .media-section {
+    text-align: center;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .media-preview {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Issues Section
+  .issues-section {
+    flex: 1;
+    background: #fdfdfd;
+    padding: 1rem;
+    overflow-y: auto;
+    animation: fadeInRight 0.5s ease;
+  
+    h3 {
+      margin-bottom: 1rem;
+    }
+  
+    .issue-item {
+      margin-bottom: 1.5rem;
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+      .issue-question {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #444;
+      }
+  
+      .issue-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+  
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+  
+          input[type='radio'] {
+            accent-color: #2196f3;
+          }
+        }
+      }
+    }
+  }
+  
+
+  // Responsive
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    height: auto;
+
+    .chat-section,
+    .media-section,
+    .issues-section {
+      max-width: 100%;
+    }
+  }
+}
+
+// Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

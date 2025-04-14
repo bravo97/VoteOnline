@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm số lớn thứ 2 trong mảng</title>
+</head>
+<body>
+    <h1>Tìm số l��n thứ 2 trong mảng</h1>
+    <p>Mảng ban đầu:</p>
+    <pre>
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+    </pre>
+    <p>Số l��n thứ 2 trong mảng: <span id="secondLargestNumber"></span></p>
+    <button onclick="findSecondLargestNumber()">Tìm và hiển thị</button>
+    
+    <script>
+        function findSecondLargestNumber() {
+            console.log('checking second');
+            
+            var arr = [1,2,3,4,5,6,7,8,9,10]
+            // Sort the array in descending order
+            arr.sort((a, b) => b - a);
+
+            // Return the second element (index 1)
+            console.log(arr[1]);
+             
+        }
+
+    </script>
+</body>
+</html>

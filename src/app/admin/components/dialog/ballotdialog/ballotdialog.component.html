@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Thêm mới vấn đề</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Tên vấn đề</mat-label>
+    <input matInput formControlName="tenVD" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Mô tả</mat-label>
+    <textarea matInput rows="3" formControlName="mota"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Ngày bắt đầu</mat-label>
+    <input matInput [matDatepicker]="startPicker" formControlName="ngayBatDau">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Ngày kết thúc</mat-label>
+    <input matInput [matDatepicker]="endPicker" formControlName="ngayKetThuc">
+    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+    <mat-datepicker #endPicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Phương án lựa chọn -->
+  <div formArrayName="phuongAn" class="option-group">
+    <div *ngFor="let option of phuongAn.controls; let i = index" [formGroupName]="i" class="option-item">
+      <mat-form-field class="full-width">
+        <mat-label>Phương án {{i + 1}}</mat-label>
+        <input matInput formControlName="text" />
+      </mat-form-field>
+      <button mat-icon-button color="warn" (click)="removeOption(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <button mat-button color="primary" (click)="addOption()">
+      <mat-icon>add</mat-icon> Thêm phương án
+    </button>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Hủy</button>
+  <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">Lưu</button>
+</mat-dialog-actions>

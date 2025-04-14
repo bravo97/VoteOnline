@@ -1,0 +1,25 @@
+.drawer-container {
+    height: 93vh;
+    overflow: hidden;
+  }
+  
+  .drawer {
+    overflow-y: auto;
+  }
+  
+  .drawer-content {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-container {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  

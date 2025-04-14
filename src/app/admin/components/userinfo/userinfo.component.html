@@ -1,0 +1,38 @@
+
+<mat-card>
+    <mat-card-header class="text-center">
+        <h1>Thông tin tài khoản</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Tài khoản</mat-label>
+                <input matInput formControlName="username">
+            </mat-form-field>
+            
+            <mat-form-field class="example-full-width">
+                <mat-label>Mật khẩu</mat-label>
+                <input type="password" matInput formControlName="password">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Họ tên</mat-label>
+                <input matInput formControlName="hoten">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Điện thoại</mat-label>
+                <input matInput formControlName="dienthoai">
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary">Đăng ký</button>
+                <button routerLink="/login" mat-raised-button color="accent">Quay lại</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
