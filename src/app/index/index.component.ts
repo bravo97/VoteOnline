@@ -1,5 +1,9 @@
 import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { HomeService } from "../services/home.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-index',
@@ -31,9 +35,10 @@ import { Component } from "@angular/core";
     ])
   ]
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit {
   showForm = false;
   activated = false;
+  registerForm!: FormGroup;
   testimonials = [
     {
       name: 'Nguyễn Văn A',
@@ -77,6 +82,15 @@ export class IndexComponent {
     }
   ];
 
+  constructor(private service:HomeService,private builder: FormBuilder,private toastr:ToastrService,private router:Router){}
+
+  ngOnInit(): void {
+    this.registerForm = this.builder.group({
+          hoTen:this.builder.control('',Validators.compose([Validators.required,Validators.minLength(5)])),
+          dienThoai:this.builder.control('',Validators.compose([Validators.required,Validators.minLength(8)])),
+          email:this.builder.control('',Validators.compose([Validators.required,Validators.email]))
+        })
+  }
   scrollTo(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -91,6 +105,20 @@ export class IndexComponent {
     }, 700);
   }
   onSubmit() {
-    // Submit logic here
+    if(this.registerForm.valid){
+      this.service.Register(this.registerForm.value)
+      .subscribe({
+        next:(res) =>{
+            this.registerForm.reset();
+            this.toastr.success("Đăng ký thành công");
+            this.router.navigate(['home']);
+        },
+        error:(err)=>{
+          this.toastr.error(err?.error.message,"Thông báo");
+        }
+      })
+    }else{
+      this.toastr.warning('Vui lòng nhập đủ thông tin',"Thông báo");
+    }
   }
 }

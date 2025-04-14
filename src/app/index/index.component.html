@@ -25,8 +25,9 @@
   
       <!-- Form nhập thông tin -->
       <div class="register-form" [class.show]="showForm">
-        <form (ngSubmit)="onSubmit" #form="ngForm">
-          <input type="text" placeholder="Nhập tên của bạn" name="name" ngModel required />
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+          <input type="text" placeholder="Nhập tên của bạn" name="hoTen" ngModel required />
+          <input type="email" placeholder="Số điện thoại" name="dienThoai" ngModel />
           <input type="email" placeholder="Email (tuỳ chọn)" name="email" ngModel />
           <button type="submit">Tham gia ngay</button>
         </form>

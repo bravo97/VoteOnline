@@ -38,9 +38,4 @@ export class AuthService {
       return null;
     }
   }
-
-
-  GetData(){
-    return this.http.get('http://192.168.2.24:1303/api/admin/getexport');
-  }
 }
