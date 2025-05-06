@@ -23,28 +23,8 @@ export class LoginComponent {
     })
   }
 
-  LoginUser(){
-    if(!this.loginForm.valid){
-      this.auth.LoginUser(this.loginForm.value)
-      .subscribe({
-        next:(res) =>{
-          sessionStorage.setItem("userinfo",res.accessToken)        
-          this.toastr.success("Đăng nhập thành công");
-          this.loginForm.reset();
-          this.router.navigate(['home']); 
-        },
-        error:(err)=>{
-          console.log(err);
-          
-          this.toastr.error(err?.error.message,"Thông báo");
-        }
-      })
-    }else{
-      
-     }
-  }
-
-  LoginAdmin(){
+  
+  onSubmit(){
     if(this.loginForm.valid){
       this.auth.LoginAdmin(this.loginForm.value)
       .subscribe({

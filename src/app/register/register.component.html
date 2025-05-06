@@ -1,37 +1,42 @@
-<mat-card>
-    <mat-card-header>
-        <h1>Đăng ký tài khoản</h1>
-    </mat-card-header>
-    <mat-card-content>
-        <form class="example-form" [formGroup]="registerForm" (ngSubmit)="register()">
-            <mat-form-field class="example-full-width">
-              <mat-label>Tài khoản</mat-label>
-              <input matInput formControlName="username">
-            </mat-form-field>
-          
-            <mat-form-field class="example-full-width">
-              <mat-label>Mật khẩu</mat-label>
-              <input type="password" matInput formControlName="password">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Họ tên</mat-label>
-                <input matInput formControlName="hoten">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput formControlName="email">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Điện thoại</mat-label>
-                <input matInput formControlName="dienthoai">
-            </mat-form-field>
-            <div>
-                <button mat-raised-button color="primary">Đăng ký</button>
-                <button routerLink="/login" mat-raised-button color="accent">Quay lại</button>
-            </div>
-        </form>
-    </mat-card-content>
-</mat-card>
+<div class="register-wrapper">
+    <mat-card class="register-card mat-elevation-z8">
+      <h1 class="title">Tạo tài khoản</h1>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tài khoản</mat-label>
+          <input matInput formControlName="username" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mật khẩu</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Họ tên</mat-label>
+          <input matInput formControlName="hoten" />
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Điện thoại</mat-label>
+          <input matInput formControlName="dienthoai" />
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+  
+        <div class="button-group">
+          <button mat-raised-button color="primary" type="submit">Đăng ký</button>
+          <button mat-stroked-button color="accent" routerLink="/auth/login">Quay lại</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  

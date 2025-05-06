@@ -1,53 +1,29 @@
-<mat-card>
-    <mat-card-header>
-        <h1>Đăng nhập hệ thống</h1>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-tab-group>
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon">person</mat-icon>Người dùng
-              </ng-template>
-  
-              <form class="example-form" [formGroup]="loginForm" (ngSubmit)="LoginUser()">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Tài khoản</mat-label>
-                    <input matInput formControlName="username">
-                  </mat-form-field>
-                
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Mật khẩu</mat-label>
-                    <input type="password" matInput formControlName="password">
-                  </mat-form-field>
-                  <div>
-                    <button mat-raised-button color="primary">Đăng nhập</button>
-                </div>
-            </form>
-            </mat-tab>
-          
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon">manage_accounts</mat-icon>Quản trị viên
-              </ng-template>
-              <form class="example-form" [formGroup]="loginForm" (ngSubmit)="LoginAdmin()">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Tài khoản</mat-label>
-                        <input matInput formControlName="username">
-                      </mat-form-field>
-                    
-                      <mat-form-field class="example-full-width">
-                        <mat-label>Mật khẩu</mat-label>
-                        <input type="password" matInput formControlName="password">
-                      </mat-form-field>
-                      <div>
-                        <button mat-raised-button color="primary">Đăng nhập</button>
-                        <button routerLink="/register" mat-raised-button color="accent">Đăng ký</button>
-                    </div>
-                </form>
-            </mat-tab>
-          </mat-tab-group>       
-    </mat-card-content>
+<div class="login-wrapper">
+  <mat-card class="login-card mat-elevation-z8">
+    <div class="login-content">
+      <div class="login-image">
+        <img src="https://cdn-media.sforum.vn/storage/app/media/anh-dep-68.jpg" alt="login illustration" />
+      </div>
+
+      <div class="login-form">
+        <h2>Quản trị hệ thống</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="username" type="email" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Mật khẩu</mat-label>
+            <input matInput formControlName="password" type="password" required />
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="full-width" type="submit">
+            Đăng nhập
+          </button>
+        </form>
+        <p class="hint">Email: adminexample.com – Mật khẩu: admin123</p>
+      </div>
+    </div>
   </mat-card>
-  
-  
-  
+</div>
