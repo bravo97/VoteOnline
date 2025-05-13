@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
@@ -29,10 +30,10 @@ export class HomeComponent implements OnInit {
   constructor(private auth:AuthService,public chatService: ChatService){}
 
   ngOnInit(): void {
-    this.userinfo = sessionStorage.getItem('userinfo');    
-    var info = this.auth.decodeToken(this.userinfo);   
-    this.loggedInUserName = info.certserialnumber;  
-    this.chatService.joinRoom(info.certserialnumber,info.unique_name,info.nameid)
+    this.userinfo = sessionStorage.getItem('accessToken');    
+    var info = jwtDecode(this.userinfo);   
+    this.loggedInUserName = '';  
+    this.chatService.joinRoom('','','')
     this.chatService.messages$.subscribe(res=>{
       this.messages = res
     })

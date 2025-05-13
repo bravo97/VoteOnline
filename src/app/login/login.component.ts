@@ -31,7 +31,8 @@ export class LoginComponent {
         next:(res) =>{
             this.loginForm.reset();
             this.toastr.success("Đăng nhập thành công");
-            sessionStorage.setItem("username",res);          
+            sessionStorage.setItem("accessToken",res.accessToken);     
+            sessionStorage.setItem("refreshToken",res.refreshToken);          
             this.router.navigate(['admin/dashboard']);
         },
         error:(err)=>{    

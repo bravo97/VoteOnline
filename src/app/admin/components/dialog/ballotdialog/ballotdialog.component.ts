@@ -20,26 +20,26 @@ constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<Ballotdialog
     mota: [''],
     ngayBatDau: [null, Validators.required],
     ngayKetThuc: [null, Validators.required],
-    phuongAn: this.fb.array([this.createOption()])
+    phuongAns: this.fb.array([this.createOption()])
   });
 }
 
 
-get phuongAn(): FormArray {
-  return this.form.get('phuongAn') as FormArray;
+get phuongAns(): FormArray {
+  return this.form.get('phuongAns') as FormArray;
 }
 
 createOption(): FormGroup {
-  return this.fb.group({ text: ['', Validators.required] });
+  return this.fb.group({ ten: ['', Validators.required] });
 }
 
 addOption() {
-  this.phuongAn.push(this.createOption());
+  this.phuongAns.push(this.createOption());
 }
 
 removeOption(index: number) {
-  if (this.phuongAn.length > 1) {
-    this.phuongAn.removeAt(index);
+  if (this.phuongAns.length > 1) {
+    this.phuongAns.removeAt(index);
   }
 }
 

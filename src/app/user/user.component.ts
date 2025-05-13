@@ -18,29 +18,9 @@ export class UserComponent implements OnInit {
       { title: 'Thẻ 2', content: 'Nội dung của thẻ 2', isExpanded: true },
     ];
   
-    constructor(private auth:AuthService,public chatService: ChatService){}
+    constructor(private auth:AuthService,){}
   
     ngOnInit(): void {
-      this.userinfo = sessionStorage.getItem('userinfo');    
-      var info = this.auth.decodeToken(this.userinfo);   
-      this.loggedInUserName = info.certserialnumber;  
-      this.chatService.joinRoom(info.certserialnumber,info.unique_name,info.nameid)
-      this.chatService.messages$.subscribe(res=>{
-        this.messages = res
-      })
+      
     }
-  
-    sendMessage() {
-      this.chatService.sendMessage(this.inputMessage)
-      .then(()=>{
-        this.inputMessage = "";
-      }).catch((err)=>{
-        console.log(err); 
-      })
-    }
-  
-    toggleExpand(card: any) {
-      card.isExpanded = !card.isExpanded;
-    }
-
 }

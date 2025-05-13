@@ -8,14 +8,22 @@ import { AlertService } from '../../services/alert.service';
 import { BallotService } from '../../services/ballot.service';
 import { BallotdialogComponent } from '../dialog/ballotdialog/ballotdialog.component';
 import { Subscription } from 'rxjs';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { SelectionModel } from '@angular/cdk/collections';
 
-export interface BallotData {
+interface BallotData {
   id: string;
   tenVD: string;
   mota: string;
   ngayBatDau: string;
   ngayKetThuc:string;
-  dinhdang:string
+  code:string
+}
+
+interface LinkModel{
+  listId :string[];
+  code:string;
 }
 
 
@@ -51,7 +59,7 @@ export interface BallotData {
 })
 
 export class BallotComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'tenVD', 'mota', 'ngayBatDau', 'ngayKetThuc','dinhdang','action'];
+  displayedColumns: string[] = ['select', 'tenVD', 'mota', 'ngayBatDau', 'ngayKetThuc','code','action'];
   dataSource!: MatTableDataSource<BallotData>;
   lstVanDe:any;
   add: string = 'Add';
@@ -59,11 +67,12 @@ export class BallotComponent implements OnInit, OnDestroy {
   delete: string = 'Delete';
   subscription = new Subscription();
   tenNhom:string = '';
+  selection = new SelectionModel<any>(true, []); // Cho phép chọn nhiều dòng
   
   @ViewChild(MatPaginator) paginator!: MatPaginator ;
   @ViewChild(MatSort) sort!: MatSort ;
 
-  constructor(public dialog: MatDialog,private service: BallotService,private alertService: AlertService) {
+  constructor(public dialog: MatDialog,private service: BallotService,private alertService: AlertService,private toastr: ToastrService) {
   }
 
   ngOnDestroy(): void {
@@ -128,7 +137,51 @@ export class BallotComponent implements OnInit, OnDestroy {
       enterAnimationDuration: '1000ms',
       data: obj
     }).afterClosed().subscribe(o => {
+      this.service.ThemMoi(o).subscribe({
+        next: res => this.toastr.success("Thành công"),
+        error: err => this.toastr.error("Thất bại")
+      });
+      
       this.getAllReports();
     });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.data);
+    }
+  }
+  
+  toggleRow(row: any) {
+    this.selection.toggle(row);
+  }
+
+
+  generateString(){
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return Array.from({ length: 20 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  }
+  taoLinkBieuQuyet() {
+    const selectedIds = this.selection.selected.map(row => row.id);
+    const Code = this.generateString();
+    
+    const newLink:LinkModel = {
+      listId : selectedIds,
+      code: Code
+    }
+    this.service.TaoLink(newLink)
+    .subscribe({
+      next: res => this.toastr.success("Tạo khóa thành công"),
+      error: err => this.toastr.error("Tạo khóa thất bại")
+    })
+    
   }
 }

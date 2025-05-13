@@ -1,112 +1,121 @@
 <div class="landing-container">
-  <!-- hero.component.html -->
+  <!-- HERO SECTION -->
   <div class="hero-section">
-    <!-- Header chứa logo và nút đăng nhập/đăng ký -->
     <div class="hero-header">
       <div class="hero-left">
         <img src="assets/images/logo.png" alt="Logo" class="hero-logo" />
       </div>
     </div>
-  
-    <!-- Nội dung chính -->
+
     <div class="hero-content">
       <div class="hero-title">Trang Bình Chọn Trực Tuyến</div>
       <div class="hero-subtitle">
         Tham gia, bình chọn và tạo cuộc bình chọn của riêng bạn một cách dễ dàng!
       </div>
-  
-      <!-- Phần nút trượt -->
-      <div class="slider-wrapper" *ngIf="!showForm">
-        <div class="slider-track" [ngClass]="{ activated: activated }" (click)="startSlide()">
-          <button class="slider-thumb">Nhấn để tham gia</button>
+
+      <!-- Thay slider-track bằng input và nút -->
+      <div class="input-slider-wrapper" *ngIf="!showForm">
+        <div class="input-group">
+          <input
+            type="text"
+            [(ngModel)]="participationCode"
+            placeholder="Nhập mã vấn đề bình chọn"
+            name="participation"
+          />
+          <button (click)="startSlide()">Nhấn để tham gia</button>
         </div>
         <button class="create-btn">Tạo bình chọn</button>
       </div>
-  
-      <!-- Form nhập thông tin -->
+
+      <!-- Form tham gia -->
       <div class="register-form" [class.show]="showForm">
         <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-          <input type="text" placeholder="Nhập tên của bạn" name="hoTen" ngModel required />
-          <input type="email" placeholder="Số điện thoại" name="dienThoai" ngModel />
-          <input type="email" placeholder="Email (tuỳ chọn)" name="email" ngModel />
+          <input type="text" placeholder="Tên của bạn" formControlName="hoTen" ngModel required />
+          <input type="text" placeholder="Nhập số điện thoại" formControlName="dienThoai" ngModel />
+          <input type="email" placeholder="Email (tuỳ chọn)" formControlName="email" ngModel />
           <button type="submit">Tham gia ngay</button>
         </form>
       </div>
     </div>
   </div>
-  
-  <!-- Features Section -->
+
+  <!-- FEATURES SECTION -->
   <section id="features" class="features-section">
     <h2 class="section-title" [@fadeInUp]>Tính năng nổi bật</h2>
     <div class="features-grid">
-      <mat-card class="feature-card" *ngFor="let feature of features" [@fadeInUp]>
-        <mat-card-header>
-          <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
-          <mat-card-title>{{ feature.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ feature.description }}</p>
-        </mat-card-content>
-      </mat-card>
+      <ng-container *ngIf="features.length > 0; else noFeatures">
+        <mat-card class="feature-card" *ngFor="let feature of features">
+          <mat-card-header>
+            <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+            <mat-card-title>{{ feature.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ feature.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-template #noFeatures>
+        <p>Hiện tại chưa có tính năng nào được hiển thị.</p>
+      </ng-template>
     </div>
   </section>
-  
-  <!-- Detailed Function Description -->
+
+  <!-- DETAILED FEATURE BOXES -->
   <section class="features-section">
     <div class="feature-box" style="background-color: #e9f9f3;" @fadeInUp>
       <div class="feature-content">
         <div class="feature-text">
-          <h3>Đồng bộ với các sàn thương mại điện tử</h3>
-          <p>Hệ thống cho phép kết nối và đồng bộ sản phẩm với các sàn như Shopee, Tiki, Lazada,… giúp bạn bán hàng đa kênh dễ dàng hơn.</p>
+          <h3>Tạo bình chọn nhanh chóng</h3>
+          <p>Tạo cuộc bình chọn chỉ với vài thao tác đơn giản, không cần kỹ thuật.</p>
           <button mat-raised-button color="primary">Xem chi tiết</button>
         </div>
         <div class="feature-image">
-          <img src="assets/images/san-thuong-mai.png" alt="TMĐT" />
+          <img src="assets/images/facebook-ban-hang.png" alt="Tạo bình chọn" />
         </div>
       </div>
     </div>
-  
+
     <div class="feature-box" style="background-color: #edf6ff;" @fadeInUp>
       <div class="feature-content reverse">
         <div class="feature-text">
-          <h3>Website bán hàng chỉ với 1 lần chạm</h3>
-          <p>Tạo ngay website riêng chuyên nghiệp mà không cần biết lập trình. Giao diện đẹp mắt, hỗ trợ bán hàng online hiệu quả.</p>
-          <button mat-raised-button color="accent">Xem chi tiết</button>
+          <h3>Tham gia dễ dàng</h3>
+          <p>Người dùng chỉ cần nhập tên và lựa chọn để tham gia bình chọn một cách nhanh chóng.</p>
+          <button mat-raised-button color="accent">Tìm hiểu thêm</button>
         </div>
         <div class="feature-image">
-          <img src="assets/images/website-ban-hang.png" alt="Website" />
+          <img src="assets/images/giao-hang.png" alt="Bình chọn dễ dàng" />
         </div>
       </div>
     </div>
-  
+
     <div class="feature-box" style="background-color: #fff3f3;" @fadeInUp>
       <div class="feature-content">
         <div class="feature-text">
-          <h3>Liên kết quản lý bán hàng trên Facebook</h3>
-          <p>Hỗ trợ quản lý đơn hàng và tương tác khách hàng ngay trên Fanpage. Đồng bộ dữ liệu và tin nhắn để không bỏ lỡ khách hàng nào.</p>
-          <button mat-raised-button color="warn">Xem chi tiết</button>
+          <h3>Kết quả minh bạch</h3>
+          <p>Kết quả được cập nhật theo thời gian thực với biểu đồ trực quan.</p>
+          <button mat-raised-button color="warn">Xem kết quả</button>
         </div>
         <div class="feature-image">
-          <img src="assets/images/facebook-ban-hang.png" alt="Facebook" />
+          <img src="assets/images/san-thuong-mai.png" alt="Kết quả" />
         </div>
       </div>
     </div>
-  
+
     <div class="feature-box" style="background-color: #fff9f0;" @fadeInUp>
       <div class="feature-content reverse">
         <div class="feature-text">
-          <h3>Giải pháp giao hàng dễ dàng</h3>
-          <p>Tích hợp nhiều đơn vị vận chuyển như GHTK, ViettelPost, J&T,… giúp bạn xử lý đơn nhanh chóng và tối ưu chi phí giao hàng.</p>
-          <button mat-raised-button color="primary">Xem chi tiết</button>
+          <h3>Bảo mật & riêng tư</h3>
+          <p>Dữ liệu người dùng được bảo mật tuyệt đối, hỗ trợ bình chọn ẩn danh.</p>
+          <button mat-raised-button color="primary">Tìm hiểu thêm</button>
         </div>
         <div class="feature-image">
-          <img src="assets/images/giao-hang.png" alt="Giao hàng" />
+          <img src="assets/images/website-ban-hang.png" alt="Bảo mật" />
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Testimonials Section -->
+
+  <!-- TESTIMONIALS -->
   <section id="testimonials" class="features-section testimonials">
     <h2 class="section-title">Người dùng nói gì về chúng tôi</h2>
     <div class="testimonials-carousel">
@@ -123,9 +132,8 @@
       </div>
     </div>
   </section>
-  
-  
-  <!-- Footer -->
+
+  <!-- FOOTER -->
   <footer class="footer" @fadeInUp>
     <div class="footer-content">
       <div class="footer-left">
@@ -139,6 +147,4 @@
       </div>
     </div>
   </footer>
-  
-  </div>
-  
+</div>

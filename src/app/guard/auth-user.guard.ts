@@ -1,6 +1,6 @@
+import { IndexService } from '../services/index.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthUserGuard implements CanActivate{
 
-  constructor(private auth:AuthService,private router:Router,private toastr:ToastrService){
+  constructor(private auth:IndexService,private router:Router,private toastr:ToastrService){
 
   }
 
@@ -20,7 +20,7 @@ export class AuthUserGuard implements CanActivate{
         return true;
       }else{
         this.toastr.warning("Chưa đăng nhập","Thông báo");
-        this.router.navigate(['login']);
+        this.router.navigate(['index']);
         return false;
       }
 

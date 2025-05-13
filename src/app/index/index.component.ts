@@ -1,9 +1,16 @@
 import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
 import { Component, OnInit } from "@angular/core";
-import { HomeService } from "../services/home.service";
+import { IndexService } from "../services/index.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+
+interface UserAccount{
+  code:string;
+  hoten:string;
+  dienthoai:string;
+  email:string;
+}
 
 @Component({
   selector: 'app-index',
@@ -36,89 +43,97 @@ import { Router } from "@angular/router";
   ]
 })
 export class IndexComponent implements OnInit {
+  registerForm!: FormGroup;
   showForm = false;
   activated = false;
-  registerForm!: FormGroup;
+  participationCode:string = "";
+
+  features = [
+    {
+      icon: 'how_to_vote',
+      title: 'Tạo bình chọn nhanh',
+      description: 'Chỉ cần vài bước đơn giản để khởi tạo cuộc bình chọn của riêng bạn.'
+    },
+    {
+      icon: 'group',
+      title: 'Tham gia dễ dàng',
+      description: 'Người dùng có thể tham gia bình chọn ngay mà không cần đăng nhập.'
+    },
+    {
+      icon: 'leaderboard',
+      title: 'Hiển thị kết quả trực quan',
+      description: 'Kết quả bình chọn được cập nhật liên tục với biểu đồ dễ hiểu.'
+    },
+    {
+      icon: 'lock',
+      title: 'Bảo mật thông tin',
+      description: 'Hệ thống bảo vệ dữ liệu người dùng với các biện pháp bảo mật hiện đại.'
+    }
+  ];
+
   testimonials = [
     {
       name: 'Nguyễn Văn A',
-      avatar: 'assets/images/user1.jpg',
-      content: 'Trang web bình chọn rất dễ sử dụng và hiệu quả!'
+      avatar: '/assets/images/user1.jpg',
+      content: 'Giao diện đơn giản, dễ sử dụng và kết quả rõ ràng. Tôi rất hài lòng!'
     },
     {
       name: 'Trần Thị B',
-      avatar: 'assets/images/user2.jpg',
-      content: 'Tôi có thể tạo cuộc bình chọn và mời mọi người tham gia cực nhanh.'
+      avatar: '/assets/images/user2.jpg',
+      content: 'Trang bình chọn rất hữu ích cho việc lấy ý kiến trong tổ chức của chúng tôi.'
     },
     {
       name: 'Lê Văn C',
-      avatar: 'assets/images/user3.jpg',
-      content: 'Rất hài lòng về giao diện và sự tiện lợi của hệ thống.'
-    },
-    {
-      name: 'Phạm Thị D',
-      avatar: 'assets/images/user4.jpg',
-      content: 'Tôi đã sử dụng cho các hoạt động nhóm và công việc – rất hiệu quả!'
-    },
-    // có thể thêm nhiều hơn nữa
-  ];
-  
-  // Dữ liệu mô tả các tính năng chính
-  features = [
-    {
-      title: 'Bình chọn nhanh chóng',
-      description: 'Tạo cuộc bình chọn chỉ với vài cú nhấp chuột.',
-      icon: 'how_to_vote'
-    },
-    {
-      title: 'Kết quả minh bạch',
-      description: 'Hiển thị kết quả theo thời gian thực.',
-      icon: 'bar_chart'
-    },
-    {
-      title: 'Bảo mật cao',
-      description: 'Sử dụng xác thực JWT và dữ liệu được mã hóa.',
-      icon: 'security'
+      avatar: '/assets/images/user3.jpg',
+      content: 'Tôi có thể tạo cuộc bầu chọn cho lớp học chỉ trong 2 phút!'
     }
   ];
 
-  constructor(private service:HomeService,private builder: FormBuilder,private toastr:ToastrService,private router:Router){}
+  constructor(private fb: FormBuilder,private services:IndexService,private toastr:ToastrService,private router:Router) {
+  }
 
   ngOnInit(): void {
-    this.registerForm = this.builder.group({
-          hoTen:this.builder.control('',Validators.compose([Validators.required,Validators.minLength(5)])),
-          dienThoai:this.builder.control('',Validators.compose([Validators.required,Validators.minLength(8)])),
-          email:this.builder.control('',Validators.compose([Validators.required,Validators.email]))
-        })
-  }
-  scrollTo(sectionId: string) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    this.registerForm = this.fb.group({
+      hoTen: ['', Validators.required],
+      dienThoai: [''],
+      email: ['']
+    });
   }
 
   startSlide() {
-    this.activated = true;
-    setTimeout(() => {
-      this.showForm = true;
-    }, 700);
+  if (this.participationCode.trim()) {
+    this.showForm = true;
+  } else {
+    alert('Vui lòng nhập thông tin trước khi tham gia!');
   }
+}
+
   onSubmit() {
-    if(this.registerForm.valid){
-      this.service.Register(this.registerForm.value)
+    if (this.registerForm.valid) {
+      const formData = this.registerForm.value;
+      const newAccount: UserAccount = {
+        code: this.participationCode,
+        hoten:this.registerForm.value.hoTen,
+        dienthoai:this.registerForm.value.dienThoai,
+        email: this.registerForm.value.email,
+      };
+      
+      this.services.Register(newAccount)
       .subscribe({
-        next:(res) =>{
-            this.registerForm.reset();
-            this.toastr.success("Đăng ký thành công");
-            this.router.navigate(['home']);
+        next:(res)=>{
+          sessionStorage.setItem("accessToken",res.accessToken);  
+          this.toastr.success("Chào mừng đến với VoteOnline");
+          this.registerForm.reset();
+          this.router.navigate(['home']);
         },
         error:(err)=>{
-          this.toastr.error(err?.error.message,"Thông báo");
+          console.log(err);
+          
+          this.toastr.error("Lỗi " + err);
         }
       })
-    }else{
-      this.toastr.warning('Vui lòng nhập đủ thông tin',"Thông báo");
+      
+      
     }
   }
 }
